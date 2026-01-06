@@ -41,7 +41,7 @@ export interface Invoice {
   escrow_contract?: string;
 }
 
-export type AppView = 'landing' | 'dashboard' | 'create' | 'invoices' | 'details' | 'client-pay' | 'payments' | 'settings';
+export type AppView = 'landing' | 'how-it-works' | 'dashboard' | 'create' | 'invoices' | 'details' | 'client-pay' | 'payments' | 'settings';
 
 export interface AppState {
   view: AppView;

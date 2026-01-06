@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppView, Invoice, InvoiceStatus, MilestoneStatus, AppState } from './types';
 import LandingPage from './components/LandingPage';
+import HowItWorks from './components/HowItWorks';
 import Dashboard from './components/Dashboard';
 import CreateInvoice from './components/CreateInvoice';
 import InvoiceList from './components/InvoiceList';
@@ -65,6 +66,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
+      
+      // We only care about pay/ routing. 
       if (hash.startsWith('pay/')) {
         const id = hash.split('/')[1];
         setState(prev => ({ ...prev, view: 'client-pay', selectedInvoiceId: id, userType: 'client' }));
@@ -80,7 +83,7 @@ const App: React.FC = () => {
       ...prev, 
       walletAddress: "0x1a2b" + Math.random().toString(16).slice(2, 10),
       userType: type,
-      view: type === 'freelancer' && prev.view === 'landing' ? 'dashboard' : prev.view
+      view: type === 'freelancer' && (prev.view === 'landing' || prev.view === 'client-pay' || prev.view === 'how-it-works') ? 'dashboard' : prev.view
     }));
   };
 
@@ -94,7 +97,10 @@ const App: React.FC = () => {
     if (view === 'client-pay' && invoiceId) {
       window.location.hash = `pay/${invoiceId}`;
     } else {
-      window.location.hash = '';
+      // Clear routing hash if navigating away from client pay
+      if (window.location.hash.startsWith('#pay/')) {
+        window.location.hash = '';
+      }
     }
   };
 
@@ -123,7 +129,21 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     if (state.view === 'landing') {
-      return <LandingPage onStart={() => connectWallet('freelancer')} />;
+      return (
+        <LandingPage 
+          onStart={() => connectWallet('freelancer')} 
+          onHowItWorks={() => navigate('how-it-works')}
+        />
+      );
+    }
+
+    if (state.view === 'how-it-works') {
+      return (
+        <HowItWorks 
+          onBack={() => navigate('landing')} 
+          onStart={() => connectWallet('freelancer')}
+        />
+      );
     }
 
     if (state.view === 'client-pay' && state.selectedInvoiceId) {
