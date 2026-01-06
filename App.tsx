@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { AppView, Invoice, InvoiceStatus, MilestoneStatus, AppState } from './types';
 import LandingPage from './components/LandingPage';
 import HowItWorks from './components/HowItWorks';
+import FeaturesPage from './components/FeaturesPage';
+import PricingPage from './components/PricingPage';
+import AuthPage from './components/AuthPage';
 import Dashboard from './components/Dashboard';
 import CreateInvoice from './components/CreateInvoice';
 import InvoiceList from './components/InvoiceList';
@@ -83,7 +86,7 @@ const App: React.FC = () => {
       ...prev, 
       walletAddress: "0x1a2b" + Math.random().toString(16).slice(2, 10),
       userType: type,
-      view: type === 'freelancer' && (prev.view === 'landing' || prev.view === 'client-pay' || prev.view === 'how-it-works') ? 'dashboard' : prev.view
+      view: type === 'freelancer' ? 'dashboard' : prev.view
     }));
   };
 
@@ -97,7 +100,6 @@ const App: React.FC = () => {
     if (view === 'client-pay' && invoiceId) {
       window.location.hash = `pay/${invoiceId}`;
     } else {
-      // Clear routing hash if navigating away from client pay
       if (window.location.hash.startsWith('#pay/')) {
         window.location.hash = '';
       }
@@ -131,8 +133,10 @@ const App: React.FC = () => {
     if (state.view === 'landing') {
       return (
         <LandingPage 
-          onStart={() => connectWallet('freelancer')} 
+          onStart={() => navigate('auth')} 
           onHowItWorks={() => navigate('how-it-works')}
+          onFeatures={() => navigate('features')}
+          onPricing={() => navigate('pricing')}
         />
       );
     }
@@ -141,7 +145,34 @@ const App: React.FC = () => {
       return (
         <HowItWorks 
           onBack={() => navigate('landing')} 
-          onStart={() => connectWallet('freelancer')}
+          onStart={() => navigate('auth')}
+        />
+      );
+    }
+
+    if (state.view === 'features') {
+      return (
+        <FeaturesPage 
+          onBack={() => navigate('landing')} 
+          onStart={() => navigate('auth')}
+        />
+      );
+    }
+
+    if (state.view === 'pricing') {
+      return (
+        <PricingPage 
+          onBack={() => navigate('landing')} 
+          onStart={() => navigate('auth')}
+        />
+      );
+    }
+
+    if (state.view === 'auth') {
+      return (
+        <AuthPage 
+          onBack={() => navigate('landing')}
+          onSuccess={(type) => connectWallet(type)}
         />
       );
     }
@@ -152,7 +183,7 @@ const App: React.FC = () => {
         <ClientPayPage 
           invoice={invoice} 
           walletConnected={!!state.walletAddress}
-          onConnect={() => connectWallet('client')}
+          onConnect={() => navigate('auth')}
           onPay={(msId) => updateMilestone(state.selectedInvoiceId!, msId, MilestoneStatus.PAID)}
           onApprove={(msId) => updateMilestone(state.selectedInvoiceId!, msId, MilestoneStatus.RELEASED)}
         />
