@@ -33,8 +33,13 @@ const Header: React.FC<HeaderProps> = ({ walletAddress, onDisconnect }) => {
           <span className="text-sm font-mono text-slate-700">
             {walletAddress ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}` : 'Connect Wallet'}
           </span>
-          <button onClick={onDisconnect} className="text-xs text-slate-400 hover:text-red-500 transition-colors">
+          <button 
+            onClick={onDisconnect} 
+            className="flex items-center gap-1.5 pl-2 ml-2 border-l border-slate-200 text-xs text-slate-400 hover:text-red-500 transition-colors font-bold uppercase tracking-tighter"
+            title="Logout"
+          >
             <i className="fa-solid fa-power-off"></i>
+            <span className="hidden lg:inline">Logout</span>
           </button>
         </div>
       </div>

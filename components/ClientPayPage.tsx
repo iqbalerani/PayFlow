@@ -64,7 +64,7 @@ const ClientPayPage: React.FC<ClientPayPageProps> = ({ invoice, walletConnected,
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
             <i className="fa-solid fa-bolt text-white text-sm"></i>
           </div>
-          <span className="text-lg font-bold tracking-tight text-slate-900">PayFlow AI</span>
+          <span className="text-lg font-bold tracking-tight text-slate-900">PayFlow</span>
         </div>
         <div className="flex items-center gap-2">
           <i className="fa-solid fa-shield-halved text-green-500 text-sm"></i>

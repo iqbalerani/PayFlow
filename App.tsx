@@ -84,6 +84,11 @@ const App: React.FC = () => {
     }));
   };
 
+  const logout = () => {
+    setState({ view: 'landing', walletAddress: null, userType: null });
+    window.location.hash = '';
+  };
+
   const navigate = (view: AppView, invoiceId?: string) => {
     setState(prev => ({ ...prev, view, selectedInvoiceId: invoiceId }));
     if (view === 'client-pay' && invoiceId) {
@@ -136,9 +141,9 @@ const App: React.FC = () => {
 
     return (
       <div className="flex h-screen overflow-hidden bg-slate-50">
-        <Sidebar activeView={state.view} onNavigate={navigate} />
+        <Sidebar activeView={state.view} onNavigate={navigate} onLogout={logout} />
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          <Header walletAddress={state.walletAddress} onDisconnect={() => setState({ view: 'landing', walletAddress: null, userType: null })} />
+          <Header walletAddress={state.walletAddress} onDisconnect={logout} />
           <main className="flex-1 overflow-y-auto p-4 md:p-8">
             {state.view === 'dashboard' && <Dashboard invoices={invoices} onNavigate={navigate} />}
             {state.view === 'create' && <CreateInvoice walletAddress={state.walletAddress!} onCreated={addInvoice} onNavigate={navigate} />}

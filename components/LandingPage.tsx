@@ -13,7 +13,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
           <div className="w-12 h-12 bg-blue-600 rounded-[14px] flex items-center justify-center shadow-xl shadow-blue-500/20 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer">
             <i className="fa-solid fa-bolt text-white text-xl"></i>
           </div>
-          <span className="text-2xl font-black tracking-tighter text-slate-900">PayFlow AI</span>
+          <span className="text-2xl font-black tracking-tighter text-slate-900">PayFlow</span>
         </div>
         <div className="hidden md:flex gap-10 text-sm font-bold text-slate-500 items-center">
           <a href="#" className="hover:text-blue-600 transition-colors">How it works</a>
@@ -89,7 +89,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
                   <i className="fa-solid fa-bolt text-white text-lg"></i>
                 </div>
-                <span className="text-xl font-black tracking-tighter text-slate-900">PayFlow AI</span>
+                <span className="text-xl font-black tracking-tighter text-slate-900">PayFlow</span>
               </div>
               <p className="text-slate-400 text-sm font-medium">Built for the future of work.</p>
             </div>
@@ -101,7 +101,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             </div>
           </div>
           <div className="mt-20 pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-xs text-slate-300 font-medium">© 2026 PayFlow AI Protocol. All rights reserved.</p>
+            <p className="text-xs text-slate-300 font-medium">© 2026 PayFlow Protocol. All rights reserved.</p>
             <div className="flex gap-6 text-slate-300">
               <i className="fa-brands fa-twitter hover:text-blue-400 cursor-pointer transition-colors"></i>
               <i className="fa-brands fa-github hover:text-slate-900 cursor-pointer transition-colors"></i>
